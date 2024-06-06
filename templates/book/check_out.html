@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+
+{% block title %}
+||Check Out
+{% endblock title %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row">
+        <div class="col-md-4 p-2 order-md-2">
+            <h4 class="bg-primary text-white p-2">
+                Order Summary
+            </h4>
+            <table class="table">
+                {% for book in books %}
+                <tr>
+                    <td>{{book.title}} x {{book.quantity}}</td>
+                    <td>{{book.price}}</td>
+                </tr>
+                {% endfor %}
+                <th>Total</th>
+                <th>{{total_price}}</th>
+            </table>
+        </div>
+        <div class="col-md-8 p-2">
+            {% if addresses %}
+            <form action="{% url 'place_order' %}" method="POST">
+                {% csrf_token %}
+                <h4 class="bg-primary text-white p-2">Select Address</h4>
+                {% for a in addresses%}
+                    <label class="d-block border p-2 mb-2">
+                        <input type="radio" name="address" value="{{a.id}}" required> {{a}}
+                    </label>    
+                {% endfor %}
+                {% comment %} <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Add New Address</button> {% endcomment %}
+                <button type="button" class="btn btn-primary my-2" data-bs-toggle="modal" data-bs-target="#exampleModal">Add New Address</button>
+                <h4 class="bg-primary text-white p-2 mt-3">Select Payment Method</h4>
+                <label class="d-block border p-2 mb-2">
+                    <input type="radio" name="payment_mode" value="COD" required>Cash On Delivery
+                </label>
+                <label class="d-block border p-2 mb-2">
+                    <input type="radio" name="payment_mode" value="Online" required>Online
+                </label>
+                <input type="submit"value="Place Order" class="btn btn-primary rounded-0 mt-3">
+            </form>
+            {% else %}
+                No Address Available
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Add New Address</button>
+            {% endif %}
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Add New Address</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form action="{% url 'add_address' %}" method="POST">
+                {% csrf_token %}
+                <input type="text" name="address_line_one" placeholder="Address Line one" class="form-control mb-1" required>
+                <input type="text" name="address_line_two" placeholder="Address Line two" class="form-control mb-1" required>
+                <input type="text" name="locality" placeholder="locality" class="form-control mb-1" required>
+                <input type="text" name="landmark" placeholder="landmark" class="form-control mb-1" required>
+                <input type="text" name="city" placeholder="city" class="form-control mb-1" required>
+                <input type="text" name="state" placeholder="state" class="form-control mb-1" required>
+                <input type="text" name="country" placeholder="country" class="form-control mb-1" required>
+                <input type="text" name="zip" placeholder="zip" class="form-control mb-1" required>
+                <input type="text" name="mobile" placeholder="mobile" class="form-control mb-1" required>
+                <input type="submit"  placeholder="Add" class="btn btn-primary" required>
+              </form>    
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock content %}

@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block title %}
+|| Cart
+{% endblock title %}
+
+{% block content %}
+<div class="container">
+    <div class="row my-3">
+        <div class="col-md-8 p-1">
+            {% if books %}
+            {% for book in books %}
+            <div class="card mb-3">
+            <div class="row g-0">
+            <div class="col-md-2">
+                <img src="{{book.image.url}}" class="img-fluid rounded-start" alt="..." style="height:150px;">
+            </div>
+            <div class="col-md-10">
+                <div class="card-body">
+                    <h5 class="card-title">{{book.title}}</h5>
+                    <p class="mb-0">Quantity: {{book.quantity}}</p>
+                    <p class="mb-0">Price: {{book.price}}</p>
+                    <a href="{% url 'book_details' book.id %}" class="btn btn-sm btn-outline-warning">Update</a>
+                    <a href="{% url 'remove_from_cart' book.id %}" class="btn btn-sm btn-outline-danger">Remove</a>
+                </div>
+            </div>
+        </div>
+    </div>
+            {% endfor %}
+            
+            {% else %}
+            <h4 class="text-center">Cart is Empty</h4>
+            {% endif %}
+
+        </div>
+        <div class="col-md-4 p-2">
+            {% if total_price %}
+                    <div class="card">
+                        <div class="card-body">
+                        <h4>Total Price: Rs/- {{total_price}}</h4>
+                        <a href="{% url 'check_out' %}" class="btn btn-primary w-100">Check Out</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</div>
+{% endblock content %}
