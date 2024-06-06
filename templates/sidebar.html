@@ -1,0 +1,23 @@
+<button class="btn btn-lightecondary rounded-circle d-block d-md-none" onclick="toggle()">
+    <i class="fa-solid fa-ellipsis"></i>
+</button>
+<div id="sidebar" class="h-100 bg-light d-none d-md-block ">
+    <ul class="list-unstyled">
+        <li class="border-bottom border-secondary p-2">
+            <a href="{% url 'all_books' %}" class="text-decoration-none">All Books</a>
+        </li>
+        {% for c in categories %}
+        <li class="border-bottom border-secondary p-2">
+            <a href=" {% url 'book_category' c.id %} " class="text-decoration-none">{{c.category}}</a>
+        </li>
+        {% endfor %}
+        </ul>
+</div>
+{% block extrajs %}
+<script>
+    function toggle()
+    {
+        document.getElementById("sidebar").classList.toggle("d-none")
+    }
+</script>
+{% endblock extrajs %}
