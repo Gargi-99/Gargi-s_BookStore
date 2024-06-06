@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %}
+|| User Profile
+{% endblock title %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-6 mx-auto my-5">
+        <p><Strong>Name : </Strong>{{user.first_name}} {{user.last_name}}</p>
+        <p><Strong>Username : </Strong>{{user.username}}</p>
+        <p><Strong>Email : </Strong>{{user.email}}</p>
+        <p><Strong>Password :</Strong> ******</p>
+
+    </div>
+</div>
+{% endblock content %}

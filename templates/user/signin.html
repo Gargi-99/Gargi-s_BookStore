@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block title %}
+    ||Sign In
+{% endblock title %}
+{% block content %}
+<div class="row">
+    <div class="col-md-6 mx-auto">
+        <div class="card">
+            <div class="card-header">
+                <h1>Sign In</h1>
+                <div class="card-body">
+                    {% for messages in messages %}
+                        <p class={{message.tags}}>{{messages}}</p>
+                    {% endfor %}
+                    <form action="{% url 'signin' %}" method="POST">
+                        {% csrf_token %}
+                        <div class="mb-1" >
+                            <label for="">Username</label>
+                            <input type="text" name="username" class="form-control" required>
+                        </div>
+                        {% comment %} username is bydefault there in login {% endcomment %}
+                        <div class="mb-1" >
+                            <label for="">Password</label>
+                            <input type="Password" name="password" class="form-control" required>
+                        </div>
+                        <div class="mb-1" >
+                            <input type="submit" name="Sign In" class="btn btn-primary w-100">
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
