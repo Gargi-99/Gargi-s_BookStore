@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    || Home
+{% endblock title %}
+
+{% block content %}
+<div class = "container mt-2">
+    <div class="row">
+        <div class="col">
+            <img src="{% static 'images/book1.png' %}"
+            class="w-100">
+        </div>
+    </div>
+</div>
+<h1 class="text-center my-2">Welcome to eBookStore</h1>
+{% endblock content %}
